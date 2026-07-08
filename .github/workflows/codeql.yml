@@ -32,8 +32,38 @@ jobs:
       - name: Build U-Boot (sandbox)
         run: |
           sed -i '/^YYLTYPE yylloc;/d' scripts/dtc/dtc-lexer.l
+          cat > arch/sandbox/cpu/sdl.c << 'EOF'
+          #include <errno.h>
+          int sandbox_sdl_init_display(int width, int height, int log2_bpp)
+          {
+                  return -ENODEV;
+          }
+          int sandbox_sdl_sync(void *lcd_base)
+          {
+                  return -ENODEV;
+          }
+          int sandbox_sdl_scan_keys(int key[], int max_keys)
+          {
+                  return -ENODEV;
+          }
+          int sandbox_sdl_key_pressed(int keycode)
+          {
+                  return -ENODEV;
+          }
+          int sandbox_sdl_sound_play(const void *data, unsigned int count)
+          {
+                  return -ENODEV;
+          }
+          int sandbox_sdl_sound_stop(void)
+          {
+                  return -ENODEV;
+          }
+          int sandbox_sdl_sound_init(int rate, int channels)
+          {
+                  return -ENODEV;
+          }
+          EOF
           make sandbox_defconfig
-          find . -type f \( -name 'Makefile' -o -name '*.mk' \) -exec sed -i '/sdl\.o/d' {} +
           make -j$(nproc) HOSTCFLAGS="-fcommon"
         env:
           KCFLAGS: -fcommon
