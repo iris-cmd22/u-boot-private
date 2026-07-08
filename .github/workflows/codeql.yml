@@ -33,7 +33,7 @@ jobs:
         run: |
           sed -i '/^YYLTYPE yylloc;/d' scripts/dtc/dtc-lexer.l
           make sandbox_defconfig
-          sed -i '/sdl\.o/d' arch/sandbox/cpu/Makefile
+          find . -type f \( -name 'Makefile' -o -name '*.mk' \) -exec sed -i '/sdl\.o/d' {} +
           make -j$(nproc) HOSTCFLAGS="-fcommon"
         env:
           KCFLAGS: -fcommon
