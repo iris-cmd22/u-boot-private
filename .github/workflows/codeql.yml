@@ -33,9 +33,7 @@ jobs:
         run: |
           sed -i '/^YYLTYPE yylloc;/d' scripts/dtc/dtc-lexer.l
           make sandbox_defconfig
-          sed -i '/CONFIG_SANDBOX_SDL/d' .config
-          echo "# CONFIG_SANDBOX_SDL is not set" >> .config
-          make olddefconfig
+          sed -i '/sdl\.o/d' arch/sandbox/cpu/Makefile
           make -j$(nproc) HOSTCFLAGS="-fcommon"
         env:
           KCFLAGS: -fcommon
