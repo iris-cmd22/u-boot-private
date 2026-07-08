@@ -1,5 +1,8 @@
 /**
+ * @name Network byte swap flows to memcpy
  * @kind path-problem
+ * @id cpp/uboot/network-byteswap-to-memcpy
+ * @severity error
  */
 
 import cpp
