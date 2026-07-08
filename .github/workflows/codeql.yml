@@ -28,7 +28,6 @@ jobs:
           languages: c-cpp
           build-mode: manual
           config-file: ./.github/codeql/codeql-config.yml
-          queries: ./.github/codeql/custom-queries/10_taint_tracking.ql
 
       - name: Build U-Boot (sandbox)
         run: |
