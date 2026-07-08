@@ -21,7 +21,7 @@ jobs:
         uses: github/codeql-action/init@v4
         with:
           languages: c-cpp
-          queries: ./.github/codeql/custom-queries/uboot.qls
+          queries: ./.github/codeql/custom-queries/10_taint_tracking.ql
 
       - name: Build
         uses: github/codeql-action/autobuild@v4
