@@ -17,14 +17,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bison flex libssl-dev bc device-tree-compiler swig python3-dev python3-setuptools
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v4
         with:
           languages: c-cpp
           queries: ./.github/codeql/custom-queries/10_taint_tracking.ql
 
-      - name: Build
-        uses: github/codeql-action/autobuild@v4
+      - name: Build U-Boot (sandbox)
+        run: |
+          make sandbox_defconfig
+          make -j$(nproc)
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4
