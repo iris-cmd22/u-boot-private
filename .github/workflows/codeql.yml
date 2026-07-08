@@ -30,8 +30,11 @@ jobs:
 
       - name: Build U-Boot (sandbox)
         run: |
+          sed -i '/^YYLTYPE yylloc;/d' scripts/dtc/dtc-lexer.l
           make sandbox_defconfig
-          make -j$(nproc)
+          make -j$(nproc) HOSTCFLAGS="-fcommon"
+        env:
+          KCFLAGS: -fcommon
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4
