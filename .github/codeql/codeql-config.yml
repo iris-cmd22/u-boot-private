@@ -1,0 +1,4 @@
+﻿name: "U-Boot custom CodeQL config"
+disable-default-queries: true
+queries:
+  - uses: ./.github/codeql/custom-queries/10_taint_tracking.ql
